@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Airline Market Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        table {
+            width: 100%;
+        }
+        th, td {
+            text-align: left !important;
+            padding: 8px;
+        }
+        thead th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <h2>✈️ Airline Market Demand Dashboard</h2>
+
+    <!-- 🧩 Filter Form -->
+    <form method="POST" class="mt-4 mb-3 p-3 bg-light border rounded">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="min_passengers">Min Passengers:</label>
+                <input type="number" name="min_passengers" class="form-control" placeholder="e.g. 5000000">
+            </div>
+            <div class="col-md-3">
+                <label for="route_keyword">Route Contains:</label>
+                <input type="text" name="route_keyword" class="form-control" placeholder="e.g. Tokyo">
+            </div>
+            <div class="col-md-3">
+                <label for="chart_type">Chart Type:</label>
+                <select class="form-control" name="chart_type">
+                    <option value="bar" {% if chart_type == 'bar' %}selected{% endif %}>Bar (Total by Route)</option>
+                    <option value="line" {% if chart_type == 'line' %}selected{% endif %}>Line (Yearly Trend)</option>
+                    <option value="pie" {% if chart_type == 'pie' %}selected{% endif %}>Pie (Latest Year)</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Apply</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- 📈 Chart -->
+    <div class="mt-4">
+        <h5>📊 Chart</h5>
+        {{ chart | safe }}
+    </div>
+
+    <!-- 📋 Table -->
+    <div class="mt-4">
+        <h5>📄 Flight Route Data</h5>
+        {{ table | safe }}
+    </div>
+
+    <!-- 🤖 Insights -->
+    <div class="mt-4">
+        <h5>🤖 AI-Powered Market Insights</h5>
+        <div class="bg-light p-3 rounded border">
+            <p>{{ insights | safe }}</p>
+        </div>
+    </div>
+</body>
+</html>
